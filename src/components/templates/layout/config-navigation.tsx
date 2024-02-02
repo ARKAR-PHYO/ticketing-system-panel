@@ -103,6 +103,51 @@ export function useNavData() {
                         read: true,
                     },
                 },
+                {
+                    items: [
+                        {
+                            title: 'role permission management',
+                            path: paths.dashboard.rolePermissionMamagement.root,
+                            icon: ICONS.accountTypeManagement,
+                            children: () => {
+                                const perm = navData.role.permission.find(
+                                    (p: any) =>
+                                        p.title ===
+                                        'role permission management',
+                                )
+                                if (perm['create']) {
+                                    return [
+                                        {
+                                            title: 'view account type',
+                                            path: paths.dashboard
+                                                .rolePermissionMamagement.root,
+                                        },
+                                        {
+                                            title: 'create new role permission',
+                                            path: paths.dashboard
+                                                .rolePermissionMamagement.new,
+                                        },
+                                    ]
+                                } else {
+                                    return [
+                                        {
+                                            title: 'view account type',
+                                            path: paths.dashboard
+                                                .rolePermissionMamagement.root,
+                                        },
+                                    ]
+                                }
+                            },
+                        },
+                    ],
+                    perms: (navData &&
+                        navData.role.permission.find(
+                            (p: any) => p.title === 'account type management',
+                        )) || {
+                        title: 'account type management',
+                        read: true,
+                    },
+                },
             ],
         [navData],
     )

@@ -25,5 +25,13 @@ export const paths = {
                 'driver status',
             )}`,
         },
+        rolePermissionMamagement: {
+            root: `/${paramCase('role permission management')}`,
+            new: `/${paramCase('role permission management')}/${paramCase(
+                'new',
+            )}`,
+            edit: (id: string) =>
+                `/${paramCase('role permission management')}/${id}/edit`,
+        },
     },
 }
