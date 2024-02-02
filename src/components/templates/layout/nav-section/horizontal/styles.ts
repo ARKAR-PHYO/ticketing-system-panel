@@ -13,7 +13,7 @@ type StyledItemProps = Omit<NavItemProps, 'item'> & {
 
 export const StyledItem = styled(ListItemButton, {
     shouldForwardProp: prop => prop !== 'active',
-})<StyledItemProps>(({ active, open, depth, config, theme }) => {
+})<StyledItemProps>(({ active, open, depth, config, theme, hidden }) => {
     const subItem = depth !== 1
 
     const activeStyles = {
@@ -48,6 +48,10 @@ export const StyledItem = styled(ListItemButton, {
                 color: theme.palette.text.primary,
                 backgroundColor: theme.palette.action.hover,
             }),
+
+        ...(hidden && {
+            display: 'none',
+        }),
     }
 })
 

@@ -15,6 +15,13 @@ import NavToggleButton from '@/components/organisms/root/_common/nav-toggle-butt
 
 export default function NavMini() {
     const navData = useNavData()
+    const filteredNavData =
+        navData &&
+        navData.filter(group => {
+            if (group.perms['read']) {
+                return group
+            }
+        })
 
     return (
         <Box
@@ -43,7 +50,9 @@ export default function NavMini() {
             >
                 <Logo sx={{ mx: 'auto', my: 2 }} />
 
-                <NavSectionMini data={navData} config={{}} />
+                {navData && (
+                    <NavSectionMini data={filteredNavData} config={{}} />
+                )}
             </Stack>
         </Box>
     )

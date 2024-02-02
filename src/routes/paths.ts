@@ -1,3 +1,5 @@
+import { paramCase } from '@/utils/functions/change-case'
+
 const ROOTS = {
     AUTH: '/auth',
     DASHBOARD: '/',
@@ -15,5 +17,13 @@ export const paths = {
     // DASHBOARD
     dashboard: {
         root: ROOTS.DASHBOARD,
+        userManagement: {
+            root: `/${paramCase('user management')}`,
+            new: `/${paramCase('user management')}/${paramCase('new')}`,
+            edit: (id: string) => `/${paramCase('user management')}/${id}/edit`,
+            driverStatus: `/${paramCase('user management')}/${paramCase(
+                'driver status',
+            )}`,
+        },
     },
 }

@@ -33,6 +33,14 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
 
     const navData = useNavData()
 
+    const filteredNavData =
+        navData &&
+        navData.filter(group => {
+            if (group.perms['read']) {
+                return group
+            }
+        })
+
     useEffect(() => {
         if (openNav) {
             onCloseNav()
@@ -53,7 +61,9 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
         >
             <Logo sx={{ mt: 3, ml: 4, mb: 1 }} />
 
-            <NavSectionVertical data={navData} config={{}} />
+            {navData && (
+                <NavSectionVertical data={filteredNavData} config={{}} />
+            )}
 
             <Box sx={{ flexGrow: 1 }} />
         </Scrollbar>

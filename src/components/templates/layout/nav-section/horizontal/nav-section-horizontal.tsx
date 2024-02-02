@@ -23,7 +23,7 @@ function NavSectionHorizontal({ data, config, sx, ...other }: NavSectionProps) {
         >
             {data.map((group, index) => (
                 <Group
-                    key={group.subheader || index}
+                    key={index}
                     items={group.items}
                     config={navHorizontalConfig(config)}
                 />
@@ -39,9 +39,10 @@ export default memo(NavSectionHorizontal)
 type GroupProps = {
     items: NavListProps[]
     config: NavConfigProps
+    hidden?: boolean
 }
 
-function Group({ items, config }: GroupProps) {
+function Group({ items, config, hidden = false }: GroupProps) {
     return (
         <>
             {items.map(list => (
