@@ -12,7 +12,7 @@ function NavSectionMini({ data, config, sx, ...other }: NavSectionProps) {
         <Stack sx={sx} {...other}>
             {data.map((group, index) => (
                 <Group
-                    key={group.subheader || index}
+                    key={index}
                     items={group.items}
                     config={navMiniConfig(config)}
                 />

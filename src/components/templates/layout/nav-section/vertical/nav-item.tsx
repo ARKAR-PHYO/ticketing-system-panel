@@ -24,6 +24,7 @@ export default function NavItem({
     active,
     config,
     externalLink,
+    hidden,
     ...other
 }: Props) {
     const { title, path, icon, info, children, disabled, caption, roles } = item
@@ -37,6 +38,7 @@ export default function NavItem({
             active={active}
             depth={depth}
             config={config}
+            hidden={hidden}
             {...other}
         >
             <>

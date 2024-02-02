@@ -17,6 +17,7 @@ type NavListRootProps = {
     depth: number
     hasChild: boolean
     config: NavConfigProps
+    hidden?: boolean
 }
 
 export default function NavList({
@@ -24,6 +25,7 @@ export default function NavList({
     depth,
     hasChild,
     config,
+    hidden,
 }: NavListRootProps) {
     const navRef = useRef(null)
 
@@ -84,6 +86,7 @@ export default function NavList({
                 onMouseEnter={handleOpen}
                 onMouseLeave={handleClose}
                 config={config}
+                style={{ ...(hidden && { display: 'none' }) }}
             />
 
             {hasChild && (
@@ -123,7 +126,7 @@ export default function NavList({
 // ----------------------------------------------------------------------
 
 type NavListSubProps = {
-    data: NavListProps[]
+    data: any
     depth: number
     config: NavConfigProps
 }
@@ -131,7 +134,7 @@ type NavListSubProps = {
 function NavSubList({ data, depth, config }: NavListSubProps) {
     return (
         <Stack spacing={0.5}>
-            {data.map(list => (
+            {data().map((list: any) => (
                 <NavList
                     key={list.title + list.path}
                     data={list}

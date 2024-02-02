@@ -6,4 +6,11 @@ export const defaultPermission = [
         update: false,
         delete: false,
     },
+    {
+        title: 'user management',
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
 ]

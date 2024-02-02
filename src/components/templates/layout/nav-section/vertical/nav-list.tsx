@@ -15,6 +15,7 @@ type NavListRootProps = {
     depth: number
     hasChild: boolean
     config: NavConfigProps
+    hidden?: boolean
 }
 
 export default function NavList({
@@ -22,6 +23,7 @@ export default function NavList({
     depth,
     hasChild,
     config,
+    hidden = false,
 }: NavListRootProps) {
     const pathname = usePathname()
 
@@ -48,15 +50,18 @@ export default function NavList({
 
     return (
         <>
-            <NavItem
-                item={data}
-                depth={depth}
-                open={open}
-                active={active}
-                externalLink={externalLink}
-                onClick={handleToggle}
-                config={config}
-            />
+            {!hidden && (
+                <NavItem
+                    item={data}
+                    depth={depth}
+                    open={open}
+                    active={active}
+                    externalLink={externalLink}
+                    onClick={handleToggle}
+                    config={config}
+                    hidden={hidden}
+                />
+            )}
 
             {hasChild && (
                 <Collapse in={open} unmountOnExit>
@@ -64,6 +69,7 @@ export default function NavList({
                         data={data.children}
                         depth={depth}
                         config={config}
+                        hidden={hidden}
                     />
                 </Collapse>
             )}
@@ -74,23 +80,26 @@ export default function NavList({
 // ----------------------------------------------------------------------
 
 type NavListSubProps = {
-    data: NavListProps[]
+    data: any
     depth: number
     config: NavConfigProps
+    hidden?: boolean
 }
 
-function NavSubList({ data, depth, config }: NavListSubProps) {
+function NavSubList({ data, depth, config, hidden }: NavListSubProps) {
     return (
         <>
-            {data.map(list => (
-                <NavList
-                    key={list.title + list.path}
-                    data={list}
-                    depth={depth + 1}
-                    hasChild={!!list.children}
-                    config={config}
-                />
-            ))}
+            {data &&
+                data().map((list: any) => (
+                    <NavList
+                        key={list.title + list.path}
+                        data={list}
+                        depth={depth + 1}
+                        hasChild={!!list.children}
+                        config={config}
+                        hidden={hidden}
+                    />
+                ))}
         </>
     )
 }

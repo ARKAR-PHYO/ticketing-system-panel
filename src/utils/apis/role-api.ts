@@ -9,3 +9,13 @@ export async function GetRoleApi(token: string | undefined, name: string) {
         return error
     }
 }
+
+export async function GetAllRolesApi(token: string | undefined) {
+    try {
+        const res = await apiCall(token).get(endpoints.role.list)
+        return res.data
+    } catch (error) {
+        console.error('GetAllRolesApi Error', error)
+        return error
+    }
+}
