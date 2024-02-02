@@ -65,5 +65,7 @@ export const endpoints = {
         delete: (id: string) => `/role/${id}`,
         getAllRoles: '/role',
         getRole: (name: string) => `role/${name}`,
+        searchMany: '/role/search-many',
+        search: '/role/search',
     },
 }

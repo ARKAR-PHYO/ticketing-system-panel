@@ -13,4 +13,11 @@ export const defaultPermission = [
         update: false,
         delete: false,
     },
+    {
+        title: 'role permission management',
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
 ]
