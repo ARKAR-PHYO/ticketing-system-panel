@@ -148,6 +148,50 @@ export function useNavData() {
                         read: true,
                     },
                 },
+                {
+                    items: [
+                        {
+                            title: 'project management',
+                            path: paths.dashboard.projectManagement.root,
+                            icon: ICONS.accountTypeManagement,
+                            children: () => {
+                                const perm = navData.role.permission.find(
+                                    (p: any) =>
+                                        p.title === 'project management',
+                                )
+                                if (perm['create']) {
+                                    return [
+                                        {
+                                            title: 'Projects',
+                                            path: paths.dashboard
+                                                .projectManagement.root,
+                                        },
+                                        {
+                                            title: 'create new project',
+                                            path: paths.dashboard
+                                                .projectManagement.new,
+                                        },
+                                    ]
+                                } else {
+                                    return [
+                                        {
+                                            title: 'view account type',
+                                            path: paths.dashboard
+                                                .projectManagement.root,
+                                        },
+                                    ]
+                                }
+                            },
+                        },
+                    ],
+                    perms: (navData &&
+                        navData.role.permission.find(
+                            (p: any) => p.title === 'account type management',
+                        )) || {
+                        title: 'account type management',
+                        read: true,
+                    },
+                },
             ],
         [navData],
     )

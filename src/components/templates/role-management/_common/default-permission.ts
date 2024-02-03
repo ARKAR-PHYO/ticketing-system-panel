@@ -20,4 +20,11 @@ export const defaultPermission = [
         update: false,
         delete: false,
     },
+    {
+        title: 'project management',
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
 ]
