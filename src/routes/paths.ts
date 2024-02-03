@@ -33,5 +33,11 @@ export const paths = {
             edit: (id: string) =>
                 `/${paramCase('role permission management')}/${id}/edit`,
         },
+        projectManagement: {
+            root: `/${paramCase('project management')}`,
+            new: `/${paramCase('project management')}/${paramCase('new')}`,
+            edit: (id: string) =>
+                `/${paramCase('project management')}/${id}/edit`,
+        },
     },
 }

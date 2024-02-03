@@ -68,4 +68,12 @@ export const endpoints = {
         searchMany: '/role/search-many',
         search: '/role/search',
     },
+    project: {
+        list: '/project',
+        create: `/project`,
+        update: '/project',
+        delete: (id: string) => `/project/${id}`,
+        searchMany: '/project/search-many',
+        search: '/project/search',
+    },
 }
