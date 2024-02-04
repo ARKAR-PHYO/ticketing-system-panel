@@ -27,4 +27,11 @@ export const defaultPermission = [
         update: false,
         delete: false,
     },
+    {
+        title: 'ticket management',
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
 ]
