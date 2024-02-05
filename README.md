@@ -26,11 +26,15 @@ npm install
 
 Please use
 
-````json
-{"email": "super_admin@admin.com", "password": "password"} ``` or
 ```json
-{"email": "Super Admin", "password": "password"}
-````
+{ "email": "super_admin@admin.com", "password": "password" }
+```
+
+or
+
+```json
+{ "email": "Super Admin", "password": "password" }
+```
 
 #### Create Roles & Permissions
 
