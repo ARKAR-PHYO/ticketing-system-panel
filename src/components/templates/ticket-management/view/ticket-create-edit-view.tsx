@@ -133,6 +133,11 @@ export default function TicketCreateEditView({ currentData }: Props) {
         isSubmitting,
     } = formik
 
+    const findFullNameById = (userId: string) => {
+        const user = users.find(user => user.id === userId)
+        return user ? user.fullName : 'Unknown'
+    }
+
     // RENDERS
     const renderDetails = (
         <>
@@ -213,20 +218,19 @@ export default function TicketCreateEditView({ currentData }: Props) {
                             sx={{ flex: 1 }}
                             freeSolo
                             filterSelectedOptions
-                            disableClearable
                             options={projects}
                             getOptionLabel={(project: ProjectInterface) =>
                                 project.name
                             }
-                            value={projects.find(
-                                project => project.id === values.projectId,
-                            )}
+                            value={
+                                projects.find(
+                                    project => project.id === values.projectId,
+                                ) || null
+                            }
                             onChange={(
                                 event: ChangeEvent<{}>,
                                 value: ProjectInterface,
                             ) => {
-                                console.log('value ==>', value)
-
                                 if (value) {
                                     setFieldValue(`projectId`, value.id)
                                 }
@@ -253,14 +257,16 @@ export default function TicketCreateEditView({ currentData }: Props) {
                             sx={{ flex: 1 }}
                             freeSolo
                             filterSelectedOptions
-                            disableClearable
                             options={users}
                             getOptionLabel={(user: UserInterface) =>
                                 user.fullName
                             }
-                            value={users.find(
-                                user => user.id === values.responsiblePersonId,
-                            )}
+                            value={
+                                users.find(
+                                    user =>
+                                        user.id === values.responsiblePersonId,
+                                ) || null
+                            }
                             onChange={(
                                 event: ChangeEvent<{}>,
                                 value: UserInterface,
@@ -297,20 +303,9 @@ export default function TicketCreateEditView({ currentData }: Props) {
                             options={users}
                             getOptionLabel={user => user.fullName}
                             value={values.participantIds || []}
-                            isOptionEqualToValue={(option, value) =>
-                                value && option.id === value.id
-                            }
-                            onChange={(event, newValue) => {
-                                if (newValue) {
-                                    setFieldValue(
-                                        'participantIds',
-                                        newValue.map(user => ({
-                                            id: user.id,
-                                            fullName: user.fullName,
-                                        })),
-                                    )
-                                } else {
-                                    setFieldValue('participantIds', [])
+                            onChange={(event: ChangeEvent<{}>, value: any) => {
+                                if (value) {
+                                    setFieldValue('participantIds', value)
                                 }
                             }}
                             renderInput={params => (
@@ -338,16 +333,22 @@ export default function TicketCreateEditView({ currentData }: Props) {
                                 </li>
                             )}
                             renderTags={(selected, getTagProps) =>
-                                selected.map((option, index) => (
-                                    <Chip
-                                        {...getTagProps({ index })}
-                                        key={option.id}
-                                        label={option.fullName}
-                                        size='medium'
-                                        color={'default'}
-                                        variant='soft'
-                                    />
-                                ))
+                                selected.map((option, index) => {
+                                    return (
+                                        <Chip
+                                            {...getTagProps({ index })}
+                                            key={option.id}
+                                            label={
+                                                currentData
+                                                    ? findFullNameById(option)
+                                                    : option.fullName
+                                            }
+                                            size='medium'
+                                            color={'default'}
+                                            variant='soft'
+                                        />
+                                    )
+                                })
                             }
                         />
                     </FormControl>
