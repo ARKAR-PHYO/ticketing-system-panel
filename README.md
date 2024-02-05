@@ -2,6 +2,26 @@
 
 ### [After setting up api](https://github.com/ARKAR-PHYO/ticketing-system-api/blob/26bc491df376238edb110ac4cc70c4004e2dc8f5/README.md), let's get started on client.
 
+clone repository
+
+```bash
+git clone https://github.com/ARKAR-PHYO/ticketing-system-panel.git
+```
+
+```bash
+cd ticketing-system-panel
+```
+
+Install dependencies
+
+```bash
+yarn
+or
+npm install
+```
+
+---
+
 #### Signin
 
 Please use
