@@ -36,6 +36,8 @@ or
 { "email": "Super Admin", "password": "password" }
 ```
 
+Authentation accepts both email and username.
+
 #### Create Roles & Permissions
 
 Go to `http://localhost:3000/role-permission-management/new` and create new Role
