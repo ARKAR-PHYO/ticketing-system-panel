@@ -39,5 +39,11 @@ export const paths = {
             edit: (id: string) =>
                 `/${paramCase('project management')}/${id}/edit`,
         },
+        ticketManagement: {
+            root: `/${paramCase('ticket management')}`,
+            new: `/${paramCase('ticket management')}/${paramCase('new')}`,
+            edit: (id: string) =>
+                `/${paramCase('ticket management')}/${id}/edit`,
+        },
     },
 }

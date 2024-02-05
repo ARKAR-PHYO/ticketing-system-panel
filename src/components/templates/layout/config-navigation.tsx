@@ -1,20 +1,15 @@
 import { paths } from '@/routes/paths'
-import { getIconify, getSVGIcon } from '@/utils/functions/get-icons'
+import { getIconify } from '@/utils/functions/get-icons'
 import axios from 'axios'
 import { ReactElement, useMemo } from 'react'
 import { useQuery } from 'react-query'
 
 const ICONS = {
     dashboard: getIconify('material-symbols:home'),
-    accountTypeManagement: getIconify('heroicons-solid:user-group'),
-    job: getSVGIcon('ic_job_management'),
-    workshop: getIconify('maki:car-repair'),
-    completionCode: getIconify('grommet-icons:user-worker'),
-    jobManagement: getIconify('entypo:area-graph'),
-    subcontractor: getIconify('grommet-icons:user-worker'),
-    fleetManagement: getIconify('fluent:dual-screen-settings-24-regular'),
-    carManagement: getIconify('ph:car-profile-fill'),
-    accountManagement: getIconify('solar:user-bold'),
+    user: getIconify('heroicons-solid:user-group'),
+    role: getIconify('mdi:user-lock-open'),
+    project: getIconify('oi:project'),
+    task: getIconify('fluent:tasks-app-20-filled'),
 }
 
 export interface NavItemChilden {
@@ -65,7 +60,7 @@ export function useNavData() {
                         {
                             title: `user management`,
                             path: paths.dashboard.userManagement.root,
-                            icon: ICONS.accountTypeManagement,
+                            icon: ICONS.user,
                             children: () => {
                                 const perm = navData.role.permission.find(
                                     (p: any) => p.title === 'user management',
@@ -108,7 +103,7 @@ export function useNavData() {
                         {
                             title: 'role permission management',
                             path: paths.dashboard.rolePermissionMamagement.root,
-                            icon: ICONS.accountTypeManagement,
+                            icon: ICONS.role,
                             children: () => {
                                 const perm = navData.role.permission.find(
                                     (p: any) =>
@@ -153,7 +148,7 @@ export function useNavData() {
                         {
                             title: 'project management',
                             path: paths.dashboard.projectManagement.root,
-                            icon: ICONS.accountTypeManagement,
+                            icon: ICONS.project,
                             children: () => {
                                 const perm = navData.role.permission.find(
                                     (p: any) =>
@@ -189,6 +184,49 @@ export function useNavData() {
                             (p: any) => p.title === 'account type management',
                         )) || {
                         title: 'account type management',
+                        read: true,
+                    },
+                },
+                {
+                    items: [
+                        {
+                            title: 'ticket management',
+                            path: paths.dashboard.ticketManagement.root,
+                            icon: ICONS.task,
+                            children: () => {
+                                const perm = navData.role.permission.find(
+                                    (p: any) => p.title === 'ticket management',
+                                )
+                                if (perm['create']) {
+                                    return [
+                                        {
+                                            title: 'Ticket',
+                                            path: paths.dashboard
+                                                .ticketManagement.root,
+                                        },
+                                        {
+                                            title: 'create new ticket',
+                                            path: paths.dashboard
+                                                .ticketManagement.new,
+                                        },
+                                    ]
+                                } else {
+                                    return [
+                                        {
+                                            title: 'view ticket',
+                                            path: paths.dashboard
+                                                .ticketManagement.root,
+                                        },
+                                    ]
+                                }
+                            },
+                        },
+                    ],
+                    perms: (navData &&
+                        navData.role.permission.find(
+                            (p: any) => p.title === 'ticket management',
+                        )) || {
+                        title: 'ticket management',
                         read: true,
                     },
                 },

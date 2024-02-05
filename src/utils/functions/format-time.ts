@@ -1,4 +1,5 @@
-import { format, getTime, formatDistanceToNow } from 'date-fns'
+import { format, getTime, formatDistanceToNow, parse } from 'date-fns'
+import moment from 'moment'
 
 // ----------------------------------------------------------------------
 
@@ -30,4 +31,28 @@ export function fToNow(date: InputValue) {
 
 export function fCurrentYear() {
     return format(new Date(), 'yyyy')
+}
+
+export function parseDate(dateString: string): Date {
+    const formatsToTry: string[] = [
+        'yyyy-MM-dd',
+        'dd/MM/yyyy',
+        'dd/MM/yyyy HH:mm',
+    ]
+    for (const formatStr of formatsToTry) {
+        const parsedDate = parse(dateString, formatStr, new Date())
+        if (!isNaN(parsedDate.getTime())) {
+            return parsedDate
+        }
+    }
+    return new Date()
+}
+
+export function formatDate(date: Date): string {
+    return format(date, 'dd/MM/yyyy')
+}
+
+export function formatDateTime(date: string) {
+    const formattedDate = moment(date).format('MMMM DD YYYY, HH:mm')
+    return formattedDate
 }
