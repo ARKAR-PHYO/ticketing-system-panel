@@ -34,10 +34,14 @@ import {
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import TicketTableRow from '../ticket-table-row'
 import TicketSearcbar from '../ticket-searchbar'
+import useFcmToken from '@/hooks/use-fcm-token'
+import { getMessaging, onMessage } from 'firebase/messaging'
+import firebaseApp from '@/utils/firebase'
+import TicketAssignPopup from '@/components/organisms/ticketAssignPopup'
 
 // ----------------------------------------------------------------------
 
@@ -64,6 +68,8 @@ export default function TicketListView() {
     const { enqueueSnackbar } = useSnackbar()
     const table = useTable()
     const rowsPerPage = 10
+    const assignPopup = useBoolean()
+    const { notificationPermissionStatus } = useFcmToken()
 
     // STATES
     const [filters, setFilters] = useState(defaultFilters)
@@ -124,6 +130,24 @@ export default function TicketListView() {
         // setOnDeleteId('')
         // await refetchData()
     }
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+            const messaging = getMessaging(firebaseApp)
+            const unsub = onMessage(messaging, payload => {
+                assignPopup.onTrue()
+                console.log('payload', payload)
+                enqueueSnackbar(payload?.notification?.body, {
+                    variant: 'info',
+                })
+            })
+            return () => {
+                unsub()
+            }
+        } else {
+            console.log('noti ma yout')
+        }
+    }, [notificationPermissionStatus])
 
     return (
         <>
@@ -212,6 +236,11 @@ export default function TicketListView() {
                 rowsPerPage={rowsPerPage}
                 onPageChange={table.onChangePage}
                 onRowsPerPageChange={table.onChangeRowsPerPage}
+            />
+
+            <TicketAssignPopup
+                open={assignPopup.value}
+                onClose={assignPopup.onFalse}
             />
 
             <ConfirmDialog

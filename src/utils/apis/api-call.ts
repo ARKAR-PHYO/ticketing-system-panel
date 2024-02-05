@@ -85,4 +85,8 @@ export const endpoints = {
         searchMany: '/ticket/search-many',
         search: '/ticket/search',
     },
+    fcm: {
+        create: '/fcm/',
+        search: '/fcm/search',
+    },
 }
