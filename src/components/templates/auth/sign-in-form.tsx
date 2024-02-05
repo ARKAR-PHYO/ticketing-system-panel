@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import {
+    Alert,
     Box,
     Checkbox,
     FormControlLabel,
@@ -109,6 +110,10 @@ const SignInForm = () => {
                         Please sign in to your account.
                     </Typography>
                 </Box>
+                <Alert severity='info' sx={{ mt: 3 }}>
+                    Use email : <strong>super_admin@admin.com</strong> /
+                    password :<strong> password</strong>
+                </Alert>
                 <FormikProvider value={formik}>
                     <Form autoComplete='off' noValidate onSubmit={handleSubmit}>
                         <Box className='mt-10 space-y-8'>
